@@ -111,7 +111,7 @@ const Header = ({ onNavigate, onSearch }: HeaderProps) => {
           {isSearchOpen && (
             <form
               onSubmit={handleSearchSubmit}
-              className="absolute top-full right-0 mt-3 w-70 bg-white border border-gray-200 rounded-xl shadow-lg p-2 flex items-center gap-2 z-50"
+              className="absolute top-full right-0 mt-3 w-[calc(100vw-2rem)] sm:w-70 bg-white border border-gray-200 rounded-xl shadow-lg p-2 flex items-center gap-2 z-50"
             >
               <input
                 type="text"
