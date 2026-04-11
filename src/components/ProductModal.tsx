@@ -64,7 +64,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onNavigat
   };
 
   return (
-    <div className={`fixed inset-0 bg-black/90 z-2000 flex items-center justify-center transition-opacity duration-300 ${product ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} backdrop-blur-sm`}>
+    <div className={`fixed inset-0 bg-transparent z-2000 flex items-center justify-center transition-opacity duration-300 ${product ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
       <div className={`bg-white w-[95%] max-w-[1100px] max-h-[95vh] rounded-[25px] relative flex flex-col md:flex-row overflow-hidden transition-all duration-500 shadow-2xl ${product ? 'scale-100' : 'scale-90'}`}>
         
         {/* Close Button */}

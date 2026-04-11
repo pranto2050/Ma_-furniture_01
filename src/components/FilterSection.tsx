@@ -2,23 +2,24 @@ import React from 'react';
 import { categories } from '../../public/data';
 
 interface FilterSectionProps {
-  onSearch: (query: string) => void;
-  onFilter: (catId: string, minPrice: string, maxPrice: string) => void;
+  onApply: (query: string, catId: string, minPrice: string, maxPrice: string) => void;
 }
 
-const FilterSection: React.FC<FilterSectionProps> = ({ onSearch, onFilter }) => {
+const FilterSection: React.FC<FilterSectionProps> = ({ onApply }) => {
+  const [searchQuery, setSearchQuery] = React.useState('');
   const [catId, setCatId] = React.useState('all');
   const [minPrice, setMinPrice] = React.useState('');
   const [maxPrice, setMaxPrice] = React.useState('');
 
-  const handleFilterChange = () => {
-    onFilter(catId, minPrice, maxPrice);
+  const handleFilterChange = (e: React.FormEvent) => {
+    e.preventDefault();
+    onApply(searchQuery, catId, minPrice, maxPrice);
   };
 
   return (
     <section className="bg-white py-10 -mt-[50px] relative z-20 max-w-container mx-auto px-5">
       <div className="bg-white p-[30px] rounded-[20px] shadow-[0_15px_50px_rgba(0,0,0,0.1)] border border-[#f0f0f0]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-5 items-center">
+        <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-5 items-center" onSubmit={handleFilterChange}>
           <div className="flex flex-col gap-2.5 relative">
             <label className="font-bold text-[0.85rem] text-primary-dark uppercase tracking-[1px] flex items-center gap-2">
               <i className="fas fa-search text-accent"></i> অনুসন্ধান
@@ -29,7 +30,8 @@ const FilterSection: React.FC<FilterSectionProps> = ({ onSearch, onFilter }) => 
                 type="text" 
                 placeholder="পণ্যের নাম বা আইডি দিয়ে খুঁজুন..." 
                 className="w-full pl-10 pr-[15px] py-3.5 border-2 border-[#f5f5f5] rounded-xl outline-none text-[0.95rem] bg-[#fcfcfc] transition-all focus:border-accent focus:bg-white focus:shadow-[0_0_0_4px_rgba(212,168,83,0.1)]"
-                onChange={(e) => onSearch(e.target.value)}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
@@ -41,10 +43,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({ onSearch, onFilter }) => 
             <select 
               className="w-full px-[15px] py-3.5 border-2 border-[#f5f5f5] rounded-xl outline-none text-[0.95rem] bg-[#fcfcfc] transition-all focus:border-accent focus:bg-white appearance-none bg-[url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23888%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpolyline points=%276 9 12 15 18 9%27%3E%3C/polyline%3E%3C/svg%3E')] bg-no-repeat bg-position-[right_15px_center] bg-size-[18px]"
               value={catId}
-              onChange={(e) => {
-                setCatId(e.target.value);
-                onFilter(e.target.value, minPrice, maxPrice);
-              }}
+              onChange={(e) => setCatId(e.target.value)}
             >
               <option value="all">সব ক্যাটাগরি</option>
               {categories.map(cat => (
@@ -62,10 +61,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({ onSearch, onFilter }) => 
               placeholder="৳ ০" 
               className="w-full px-[15px] py-3.5 border-2 border-[#f5f5f5] rounded-xl outline-none text-[0.95rem] bg-[#fcfcfc] transition-all focus:border-accent focus:bg-white"
               value={minPrice}
-              onChange={(e) => {
-                setMinPrice(e.target.value);
-                onFilter(catId, e.target.value, maxPrice);
-              }}
+              onChange={(e) => setMinPrice(e.target.value)}
             />
           </div>
 
@@ -78,20 +74,17 @@ const FilterSection: React.FC<FilterSectionProps> = ({ onSearch, onFilter }) => 
               placeholder="৳ ১,০০,০০০+" 
               className="w-full px-[15px] py-3.5 border-2 border-[#f5f5f5] rounded-xl outline-none text-[0.95rem] bg-[#fcfcfc] transition-all focus:border-accent focus:bg-white"
               value={maxPrice}
-              onChange={(e) => {
-                setMaxPrice(e.target.value);
-                onFilter(catId, minPrice, e.target.value);
-              }}
+              onChange={(e) => setMaxPrice(e.target.value)}
             />
           </div>
 
           <button 
+            type="submit"
             className="bg-primary text-white w-[55px] h-[55px] rounded-[15px] flex items-center justify-center cursor-pointer transition-all hover:bg-primary-dark hover:-translate-y-[3px] hover:rotate-90 hover:shadow-[0_15px_25px_rgba(139,69,19,0.3)] mt-6"
-            onClick={handleFilterChange}
           >
             <i className="fas fa-search text-[1.2rem]"></i>
           </button>
-        </div>
+        </form>
       </div>
     </section>
   );

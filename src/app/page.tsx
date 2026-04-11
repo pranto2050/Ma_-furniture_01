@@ -24,6 +24,7 @@ export default function Home() {
   const [priceRange, setPriceRange] = useState<{ min: string, max: string }>({ min: '', max: '' });
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
+  const [modalProductList, setModalProductList] = useState<Product[]>(products);
   const [isBoardOpen, setIsBoardOpen] = useState(false);
 
   useEffect(() => {
@@ -46,14 +47,17 @@ export default function Home() {
     localStorage.setItem('selectedDesigns', JSON.stringify(updated));
   };
 
-  const handleProductClick = (id: string) => {
-    const p = products.find(prod => prod.id === id);
-    if (p) setModalProduct(p);
+  const handleProductClick = (id: string, sourceList: Product[] = products) => {
+    const effectiveList = sourceList.length > 0 ? sourceList : products;
+    const p = effectiveList.find(prod => prod.id === id) || products.find(prod => prod.id === id);
+    if (!p) return;
+    setModalProductList(effectiveList);
+    setModalProduct(p);
   };
 
   const navigateProduct = (dir: number) => {
     if (!modalProduct) return;
-    const currentList = currentPage === 'results' ? filteredResults : products;
+    const currentList = modalProductList.length > 0 ? modalProductList : products;
     const idx = currentList.findIndex(p => p.id === modalProduct.id);
     if (idx === -1) return;
     const nextIdx = (idx + dir + currentList.length) % currentList.length;
@@ -67,20 +71,24 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleFilter = (catId: string, min: string, max: string) => {
-    setSelectedCatId(catId === 'all' ? null : catId);
-    setPriceRange({ min, max });
-    setCurrentPage('results');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const handleFilterApply = (query: string, catId: string, min: string, max: string) => {
+    const normalizedQuery = query.trim();
+    const normalizedCatId = catId === 'all' ? null : catId;
+    const hasQuery = normalizedQuery.length > 0;
+    const hasCategory = normalizedCatId !== null;
+    const hasPriceFilter = min.trim() !== '' || max.trim() !== '';
 
-  const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query.trim()) {
+    setSelectedCatId(normalizedCatId);
+    setPriceRange({ min, max });
+
+    if (hasQuery || hasCategory || hasPriceFilter) {
       setCurrentPage('results');
-      setSelectedCatId(null);
-      setPriceRange({ min: '', max: '' });
-    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (currentPage !== 'home') {
       setCurrentPage('home');
     }
   };
@@ -115,20 +123,23 @@ export default function Home() {
         {currentPage === 'home' && (
           <>
             <Hero products={products} onProductClick={handleProductClick} />
-            <FilterSection onSearch={handleSearch} onFilter={handleFilter} />
+            <FilterSection onApply={handleFilterApply} />
             <TopSelling products={products} onProductClick={handleProductClick} />
             
             {/* Render Category Sections as separate components */}
             <div id="categories">
-              {categories.map(cat => (
-                <CategorySection 
-                  key={cat.id}
-                  category={cat}
-                  products={products.filter(p => p.categoryId === cat.id)}
-                  onProductClick={handleProductClick}
-                  onShowAll={showCategory}
-                />
-              ))}
+              {categories.map(cat => {
+                const categoryProducts = products.filter(p => p.categoryId === cat.id);
+                return (
+                  <CategorySection 
+                    key={cat.id}
+                    category={cat}
+                    products={categoryProducts}
+                    onProductClick={(id) => handleProductClick(id, categoryProducts)}
+                    onShowAll={showCategory}
+                  />
+                );
+              })}
             </div>
 
             <section id="gallery-preview" className="py-20 bg-white">
@@ -218,7 +229,7 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[30px]">
                 {filteredResults.length > 0 ? (
                   filteredResults.map(p => (
-                    <ProductCard key={p.id} product={p} onClick={handleProductClick} />
+                    <ProductCard key={p.id} product={p} onClick={(id) => handleProductClick(id, filteredResults)} />
                   ))
                 ) : (
                   <div className="col-span-full text-center py-20">
