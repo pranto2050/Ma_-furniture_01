@@ -11,7 +11,7 @@ const TopSelling: React.FC<TopSellingProps> = ({ products, onProductClick }) => 
   const topSelling = products.filter(p => p.isTopSelling);
 
   return (
-    <section className="bg-[#fdfcfb] bg-[radial-gradient(#8B451311_1px,transparent_1px)] bg-size-[20px_20px] py-[100px] overflow-hidden relative border-y border-[#eee]">
+    <section className="bg-[#fdfcfb] bg-[radial-gradient(#8B451311_1px,transparent_1px)] bg-size-[20px_20px] py-25 overflow-hidden relative border-y border-[#eee]">
       <div className="max-w-container mx-auto px-5 text-center mb-17.5">
         <h2 className="section-title text-[2.5rem] text-primary-dark uppercase tracking-[2px]">আমাদের সেরা ডিজাইনগুলো</h2>
       </div>

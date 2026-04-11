@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Bed placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B4513"/>
+      <stop offset="100%" stop-color="#5c3211"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="url(#bg)"/>
+  <rect x="120" y="410" width="960" height="190" rx="40" fill="#f5efe6" opacity="0.95"/>
+  <rect x="170" y="280" width="280" height="180" rx="32" fill="#eadfd0"/>
+  <rect x="500" y="240" width="530" height="220" rx="36" fill="#f9f4ee"/>
+  <rect x="150" y="585" width="900" height="40" rx="20" fill="#2b1a10" opacity="0.45"/>
+  <text x="600" y="710" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="56" fill="#ffffff" font-weight="700">Bed Placeholder</text>
+</svg>

@@ -22,7 +22,7 @@ const Hero: React.FC<HeroProps> = ({ products, onProductClick }) => {
   };
 
   return (
-    <section className="h-[500px] md:h-[600px] relative overflow-hidden bg-white">
+    <section className="h-125 md:h-150 relative overflow-hidden bg-white">
       <div 
         className="h-full flex transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -33,10 +33,10 @@ const Hero: React.FC<HeroProps> = ({ products, onProductClick }) => {
               <div className="w-full md:w-[60%] h-[50%] md:h-full overflow-hidden">
                 <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
               </div>
-              <div className="w-full md:w-[40%] p-6 md:p-[60px] text-center md:text-left flex flex-col justify-center">
+              <div className="w-full md:w-[40%] p-6 md:p-15 text-center md:text-left flex flex-col justify-center">
                 <h2 className="text-[1.8rem] md:text-[3rem] mb-3 md:mb-5 text-primary-dark font-black leading-tight">{p.name}</h2>
-                <p className="text-[0.9rem] md:text-[1.2rem] mb-4 md:mb-[30px] text-gray-medium line-clamp-2 md:line-clamp-none">{p.description}</p>
-                <div className="text-[1.5rem] md:text-[2rem] font-black text-primary mb-4 md:mb-[30px]">৳{p.price.toLocaleString()}</div>
+                <p className="text-[0.9rem] md:text-[1.2rem] mb-4 md:mb-7.5 text-gray-medium line-clamp-2 md:line-clamp-none">{p.description}</p>
+                <div className="text-[1.5rem] md:text-[2rem] font-black text-primary mb-4 md:mb-7.5">৳{p.price.toLocaleString()}</div>
                 <div>
                   <button 
                     className="bg-primary text-white px-8 md:px-10 py-3 md:py-4 rounded-xl font-black text-sm md:text-lg transition-all hover:bg-primary-dark hover:-translate-y-1 shadow-lg shadow-primary/20"
@@ -68,7 +68,7 @@ const Hero: React.FC<HeroProps> = ({ products, onProductClick }) => {
         {featured.map((_, idx) => (
           <div 
             key={idx}
-            className={`w-3 h-3 rounded-full cursor-pointer transition-all ${idx === currentSlide ? 'bg-primary w-[30px] rounded-[10px]' : 'bg-black/20'}`}
+            className={`w-3 h-3 rounded-full cursor-pointer transition-all ${idx === currentSlide ? 'bg-primary w-7.5 rounded-[10px]' : 'bg-black/20'}`}
             onClick={() => setCurrentSlide(idx)}
           ></div>
         ))}

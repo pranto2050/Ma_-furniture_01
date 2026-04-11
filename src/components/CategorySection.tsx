@@ -36,12 +36,18 @@ const CategorySection: React.FC<CategorySectionProps> = ({
       <div className="max-w-container mx-auto px-4 sm:px-5">
         <div className="flex flex-col gap-5 mb-10 lg:flex-row lg:justify-between lg:items-center">
           <div className="flex items-start sm:items-center gap-4 sm:gap-5 min-w-0">
-            <div className="w-14 h-14 sm:w-[60px] sm:h-[60px] bg-bg rounded-[15px] flex items-center justify-center text-[1.7rem] sm:text-[2rem] text-primary shadow-[0_5px_15px_rgba(0,0,0,0.05)] shrink-0">
+            <div
+              className="w-14 h-14 sm:w-15 sm:h-15 bg-bg rounded-[15px] flex items-center justify-center text-[1.7rem] sm:text-[2rem] text-primary shadow-[0_5px_15px_rgba(0,0,0,0.05)] shrink-0"
+            >
               {category.icon}
             </div>
             <div className="min-w-0">
-              <h3 className="text-[1.6rem] sm:text-[2rem] lg:text-[2.2rem] text-primary-dark font-bold m-0 leading-tight break-words">{category.name}</h3>
-              <p className="text-gray-medium text-[0.95rem] sm:text-[1rem] mt-1.25 break-words">{category.description}</p>
+              <h3 className="text-[1.6rem] sm:text-[2rem] lg:text-[2.2rem] text-primary-dark font-bold m-0 leading-tight wrap-break-word">
+                {category.name}
+              </h3>
+              <p className="text-gray-medium text-[0.95rem] sm:text-[1rem] mt-1.25 wrap-break-word">
+                {category.description}
+              </p>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-3 sm:gap-5 lg:justify-end">
@@ -73,7 +79,10 @@ const CategorySection: React.FC<CategorySectionProps> = ({
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {products.map(p => (
-            <div key={p.id} className="min-w-[82vw] max-w-[82vw] sm:min-w-[300px] sm:max-w-[300px]">
+            <div
+              key={p.id}
+              className="min-w-[82vw] max-w-[82vw] sm:min-w-75 sm:max-w-75"
+            >
               <ProductCard product={p} onClick={onProductClick} />
             </div>
           ))}
