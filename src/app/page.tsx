@@ -93,6 +93,10 @@ export default function Home() {
     }
   };
 
+  const handleHeaderSearch = (query: string) => {
+    handleFilterApply(query, 'all', '', '');
+  };
+
   const filteredResults = products.filter(p => {
     const matchesSearch = !searchQuery.trim() || (
       p.id.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -114,10 +118,13 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <TopBar />
-      <Header onNavigate={(page) => {
-        setCurrentPage(page);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }} />
+      <Header
+        onNavigate={(page) => {
+          setCurrentPage(page);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onSearch={handleHeaderSearch}
+      />
 
       <main className="flex-1">
         {currentPage === 'home' && (
@@ -226,7 +233,7 @@ export default function Home() {
                 </button>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[30px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7.5">
                 {filteredResults.length > 0 ? (
                   filteredResults.map(p => (
                     <ProductCard key={p.id} product={p} onClick={(id) => handleProductClick(id, filteredResults)} />

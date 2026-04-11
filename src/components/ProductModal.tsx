@@ -65,7 +65,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onNavigat
 
   return (
     <div className={`fixed inset-0 bg-transparent z-2000 flex items-center justify-center transition-opacity duration-300 ${product ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-      <div className={`bg-white w-[95%] max-w-[1100px] max-h-[95vh] rounded-[25px] relative flex flex-col md:flex-row overflow-hidden transition-all duration-500 shadow-2xl ${product ? 'scale-100' : 'scale-90'}`}>
+      <div className={`bg-white w-[95%] max-w-275 max-h-[95vh] rounded-[25px] relative flex flex-col md:flex-row overflow-hidden transition-all duration-500 shadow-2xl ${product ? 'scale-100' : 'scale-90'}`}>
         
         {/* Close Button */}
         <button 
@@ -112,7 +112,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onNavigat
             {product.images.map((img, idx) => (
               <div 
                 key={idx}
-                className={`min-w-[80px] h-[80px] rounded-xl overflow-hidden cursor-pointer border-2 transition-all hover:scale-105 relative ${idx === activeThumb ? 'border-primary shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                className={`min-w-20 h-20 rounded-xl overflow-hidden cursor-pointer border-2 transition-all hover:scale-105 relative ${idx === activeThumb ? 'border-primary shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}`}
                 onClick={() => setActiveThumb(idx)}
               >
                 <Image 

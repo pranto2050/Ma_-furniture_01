@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { categories, contactData } from '../../public/data';
 
 const Logo = () => (
@@ -13,6 +13,7 @@ const Logo = () => (
 
 interface HeaderProps {
   onNavigate?: (page: 'home' | 'gallery') => void;
+  onSearch?: (query: string) => void;
 }
 
 const Nav = ({ onMobileClose, onNavigate }: { onMobileClose?: () => void, onNavigate?: (page: 'home' | 'gallery') => void }) => (
@@ -41,7 +42,7 @@ const Nav = ({ onMobileClose, onNavigate }: { onMobileClose?: () => void, onNavi
       >
         ক্যাটাগরি <i className="fas fa-chevron-down text-[0.8rem] hidden md:block"></i>
       </a>
-      <ul className="md:absolute md:top-full md:left-0 bg-white md:min-w-[200px] md:shadow-lg z-10 py-2.5 md:border-t-3 md:border-accent md:hidden md:group-hover:block pl-5 md:pl-0">
+      <ul className="md:absolute md:top-full md:left-0 bg-white md:min-w-50 md:shadow-lg z-10 py-2.5 md:border-t-3 md:border-accent md:hidden md:group-hover:block pl-5 md:pl-0">
         {categories.map((cat) => (
           <li key={cat.id}>
             <a 
@@ -76,8 +77,17 @@ const Nav = ({ onMobileClose, onNavigate }: { onMobileClose?: () => void, onNavi
   </ul>
 );
 
-const Header = ({ onNavigate }: HeaderProps) => {
+const Header = ({ onNavigate, onSearch }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onSearch?.(searchQuery);
+    setIsSearchOpen(false);
+    setSearchQuery('');
+  };
 
   return (
     <header className="bg-white py-4 sticky top-0 z-1000 shadow-sm transition-all">
@@ -88,8 +98,37 @@ const Header = ({ onNavigate }: HeaderProps) => {
           <Nav onNavigate={onNavigate} />
         </nav>
 
-        <div className="flex gap-5 items-center">
-          <i className="fas fa-search text-[1.2rem] cursor-pointer transition-all hover:text-accent"></i>
+        <div className="flex gap-5 items-center relative">
+          <button
+            type="button"
+            className="text-[1.2rem] cursor-pointer transition-all hover:text-accent"
+            onClick={() => setIsSearchOpen((prev) => !prev)}
+            aria-label="Search products"
+          >
+            <i className="fas fa-search"></i>
+          </button>
+
+          {isSearchOpen && (
+            <form
+              onSubmit={handleSearchSubmit}
+              className="absolute top-full right-0 mt-3 w-70 bg-white border border-gray-200 rounded-xl shadow-lg p-2 flex items-center gap-2 z-50"
+            >
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="পণ্যের নাম বা আইডি"
+                className="flex-1 px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-accent"
+              />
+              <button
+                type="submit"
+                className="bg-primary text-white px-3 py-2 rounded-lg hover:bg-primary-dark transition-all"
+              >
+                খুঁজুন
+              </button>
+            </form>
+          )}
+
           <div className="md:hidden text-[1.5rem] cursor-pointer" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
           </div>

@@ -69,7 +69,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
         </div>
         <div 
           ref={scrollRef}
-          className="flex gap-[30px] overflow-x-auto py-5 px-1 scroll-smooth no-scrollbar"
+          className="flex gap-7.5 overflow-x-auto py-5 px-1 scroll-smooth no-scrollbar"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {products.map(p => (
