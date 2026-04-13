@@ -2,10 +2,7 @@ import React from 'react';
 import { categories, contactData } from '../../public/data';
 
 const Footer = () => {
-  const currentYear = new Intl.DateTimeFormat('en', {
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(new Date());
+  const currentYear = new Date().getUTCFullYear();
 
   return (
     <footer className="bg-primary-dark text-white pt-20 pb-5">

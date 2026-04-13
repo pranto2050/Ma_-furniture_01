@@ -37,10 +37,12 @@ export default function RootLayout({
   return (
     <html
       lang="bn"
+      translate="no"
       className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${hindSiliguri.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
+        <meta name="google" content="notranslate" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>
