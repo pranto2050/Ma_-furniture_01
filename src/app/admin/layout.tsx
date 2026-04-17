@@ -13,7 +13,9 @@ import {
   X,
   Home,
   Package,
-  MessageSquare
+  MessageSquare,
+  Image as ImageIcon,
+  Layers
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -72,9 +74,23 @@ export default function AdminLayout({
           <NavItem 
             href="/admin/products" 
             icon={<ShoppingBag size={20} />} 
-            label="Products" 
+            label="Product List" 
             isOpen={isSidebarOpen} 
             active={pathname === '/admin/products'}
+          />
+          <NavItem 
+            href="/admin/gallery" 
+            icon={<ImageIcon size={20} />} 
+            label="ডিজাইন গ্যালারি" 
+            isOpen={isSidebarOpen} 
+            active={pathname === '/admin/gallery'}
+          />
+          <NavItem 
+            href="/admin/categories" 
+            icon={<Layers size={20} />} 
+            label="ক্যাটাগরি" 
+            isOpen={isSidebarOpen} 
+            active={pathname === '/admin/categories'}
           />
           <NavItem 
             href="/admin/orders" 
@@ -135,7 +151,9 @@ export default function AdminLayout({
         <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 sticky top-0 z-40">
           <h2 className="text-xl font-semibold text-gray-800">
             {pathname === '/admin' ? 'Dashboard' : 
-             pathname.startsWith('/admin/products') ? 'Products' : 
+             pathname.startsWith('/admin/products') ? 'Product List' : 
+             pathname.startsWith('/admin/gallery') ? 'ডিজাইন গ্যালারি' : 
+             pathname.startsWith('/admin/categories') ? 'ক্যাটাগরি' : 
              pathname.startsWith('/admin/orders') ? 'Orders' : 
              pathname.startsWith('/admin/messages') ? 'Messages' : 
              pathname.startsWith('/admin/users') ? 'Users' : 
