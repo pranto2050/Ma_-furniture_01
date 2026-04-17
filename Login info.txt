@@ -1,0 +1,6 @@
+How to Access
+
+1. Navigate to http://localhost:3000/admin .
+2. You will be redirected to the login page.
+3. Enter the credentials: Email : admin@example.com  
+Password : admin123 .
