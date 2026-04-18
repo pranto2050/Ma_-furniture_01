@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins, Hind_Siliguri } from "next/font/google";
 import "./globals.css";
+import Loader from "@/components/Loader";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -45,7 +46,10 @@ export default function RootLayout({
         <meta name="google" content="notranslate" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <Loader />
+        {children}
+      </body>
     </html>
   );
 }
